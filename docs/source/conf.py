@@ -1,35 +1,37 @@
-# Configuration file for the Sphinx documentation builder.
+import subprocess, os, sys
 
-# -- Project information
+sys.path.insert(0, os.path.abspath('..'))  
 
-project = 'Lumache'
-copyright = '2021, Graziella'
-author = 'Graziella'
+subprocess.call('make clean', shell=True)
+subprocess.call("cd ../../doxygen; doxygen", shell=True)
 
-release = '0.1'
-version = '0.1.0'
 
-# -- General configuration
+
 
 extensions = [
-    'sphinx.ext.duration',
-    'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.intersphinx',
+    'sphinx.ext.doctest',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.imgmath', 
+    'sphinx.ext.todo',
+    'breathe',
+    'sphinxcontrib.seqdiag',
 ]
 
-intersphinx_mapping = {
-    'python': ('https://docs.python.org/3/', None),
-    'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
-}
-intersphinx_disabled_domains = ['std']
+project = u'Aura Fall Detection'
+copyright = u'2022, Select Technology'
+version = '0.8'
+
+
+xml_path = os.path.join("../../doxygen/build/", "xml")
+
+
+breathe_projects = { "Fall":  xml_path}
+breathe_default_project = "Fall"
+
 
 templates_path = ['_templates']
-
-# -- Options for HTML output
-
 html_theme = 'sphinx_rtd_theme'
-
-# -- Options for EPUB output
-epub_show_urls = 'footnote'
+html_static_path = ['_static']
+pygments_style = "sphinx"
